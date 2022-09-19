@@ -12,14 +12,7 @@ class PhotographersController extends \Lib\Controller\BaseController
 		$result = [];
 
 		$result['columns'] = ['ID', 'ФИО', 'Фотография', 'Краткая биография', 'Стиль съёмки', 'Дата рождения'];
-		if (isset($this->params['request']['get']['SHORTING_STYLE_ID']) && intval($this->params['request']['get']['SHORTING_STYLE_ID']))
-		{
-			$result['items'] = PhotographersModel::read('photographers.SHORTING_STYLE_ID = :shooting_style_id', [':id' => $this->params['request']['get']['SHORTING_STYLE_ID']]);
-		} else
-		{
-			$result['items'] = PhotographersModel::read();
-		}
-
+		$result['items'] = PhotographersModel::read();
 		foreach ($result['items'] as &$item)
 		{
 			$item['BITRH_DATE']['value'] = date('d.m.Y', strtotime($item['BITRH_DATE']['value']));
