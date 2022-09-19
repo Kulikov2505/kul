@@ -1,9 +1,6 @@
 <?php
 session_start();
 
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
 // Создаёт папку с файлами для сохранения
 if (!file_exists($_SERVER['DOCUMENT_ROOT'] . '/files'))
 {
