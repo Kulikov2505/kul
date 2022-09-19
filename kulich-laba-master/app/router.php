@@ -12,7 +12,7 @@
 	]
 );
 
-// Клиенты
+// Стили съемки
 
 \Lib\Http\Router::getInstance()->run(
 	'/shooting-style/',
@@ -74,7 +74,7 @@
 	]
 );
 
-// Займы
+// Фотографы 
 
 \Lib\Http\Router::getInstance()->run(
 	'/photographers/',
