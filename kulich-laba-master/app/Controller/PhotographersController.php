@@ -265,18 +265,21 @@ class PhotographersController extends \Lib\Controller\BaseController
 	}
 
 	public function delete()
-	{
-		if (PhotographersModel::read('photographers.ID = :id', [':id' => $this->params['request']['get']['id']]))
-		{
-			PhotographersModel::delete('ID = :id', [':id' => $this->params['request']['get']['id']]);
-			$_SESSION['msg'] = 'Фотограф успешно удалён';
-			header('Location: /photographers/');
-			die();
-		} else
-		{
-			header('Location: /photographers/');
-			die();
-		}
-	}
+          {
+            if ($itm = PhotographersModel::read('photographers.ID = :id', [':id' => $this->params['request']['get']['id']]))
+              {
+                if (file_exists($itm['PHOTO']['value']))
+                 {
+                   unlink($_SERVER['DOCUMENT_ROOT'] . $itm['PHOTO']['value']);
+                 }
 
+                 PhotographersModel::delete('ID = :id', [':id' => $this->params['request']['get']['id']]);
+                 $_SESSION['msg'] = 'Фотограф успешно удалён';
+                 header('Location: /photographers/');
+                 die();
+               } else
+               {
+                 header('Location: /photographers/');
+                 die();
+               }
 }
