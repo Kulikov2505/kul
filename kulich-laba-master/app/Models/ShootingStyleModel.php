@@ -48,23 +48,10 @@ class ShootingStyleModel extends \Lib\Model\BaseModel
 		self::query($sql, $fields);
 	}
 
-	public function delete()
-        {
-           if ($itm = PhotographersModel::read('photographers.ID = :id', [':id' => $this->params['request']['get']['id']]))
-               {
-                  if (file_exists($itm['PHOTO']['value']))
-                      {
-                        unlink($_SERVER['DOCUMENT_ROOT'] . $itm['PHOTO']['value']);
-                      }
+	public static function delete($filter, $fields)
+	{
+		$sql = 'delete from shooting_style where ' . $filter;
 
-                      PhotographersModel::delete('ID = :id', [':id' => $this->params['request']['get']['id']]);
-                      $_SESSION['msg'] = 'Фотограф успешно удалён';
-                      header('Location: /photographers/');
-                      die();
-               } else
-         {
-          header('Location: /photographers/');
-          die();
-               }
-            }
-        }
+		self::query($sql, $fields);
+	}
+}
